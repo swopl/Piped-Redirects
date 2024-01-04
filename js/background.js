@@ -34,6 +34,29 @@ browser.webRequest.onBeforeRequest.addListener(
 			url.hostname.endsWith("youtube-nocookie.com") ||
 			INVIDIOUS_INSTANCES.includes(url.hostname)
 		) {
+			// TODO: write in a cleaner way
+			if (url.pathname.endsWith("/feed/trending")) {
+				url.pathname = url.pathname.replace(/\/feed\/trending$/, "/trending");
+			}
+			if (url.pathname.endsWith("/featured")) {
+				url.pathname = url.pathname.replace(/\/featured$/, "");
+			}
+			if (url.pathname.endsWith("/videos")) {
+				url.pathname = url.pathname.replace(/\/videos$/, "");
+				url.searchParams.set("tab", "videos");
+			}
+			if (url.pathname.endsWith("/shorts")) {
+				url.pathname = url.pathname.replace(/\/shorts$/, "");
+				url.searchParams.set("tab", "shorts");
+			}
+			if (url.pathname.endsWith("/streams")) {
+				url.pathname = url.pathname.replace(/\/streams$/, "");
+				url.searchParams.set("tab", "livestreams");
+			}
+			if (url.pathname.endsWith("/playlists")) {
+				url.pathname = url.pathname.replace(/\/playlists$/, "");
+				url.searchParams.set("tab", "playlists");
+			}
 			url.hostname = redirectHost;
 			return { redirectUrl: url.href };
 		}
