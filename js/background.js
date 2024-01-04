@@ -6,7 +6,7 @@ fetch("https://api.invidious.io/instances.json")
 	.then((resp) => resp.json())
 	.then((array) => array.forEach((json) => INVIDIOUS_INSTANCES.push(json[0])));
 
-const redirectHostDefault = "piped.kavin.rocks";
+const redirectHostDefault = "piped.video";
 let redirectHost = redirectHostDefault;
 
 browser.storage.sync.get(["redirectHost"], (result) => {
